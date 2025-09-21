@@ -4,12 +4,14 @@
 ### Sophia Mummert & Maddie Thall 
 #####################################
 
-## Part 1
+## Part 1: Basic Syntax and Variables
+
 temp_C = 18.5#setting variable
-temp_F = (temp_C * 1.8) + 32 #converting Celcius to Fahrenheit
+temp_F = (temp_C * 1.8) + 32 #converting Celsius to Fahrenheit
 cat(paste("The water temperature is", temp_C,"°C (",temp_F,"°F)")) #prints line of code using variables
 
-## Part 2
+## Part 2: Vectors and Arrays
+
 species_counts = c(Bluegill = 12, Bass = 7, Sunfish = 21, Carp = 3)
 #creating vector with values
 total_fish = sum(species_counts) #code for total fish
@@ -31,7 +33,8 @@ print(chlorophyll_concentrations) #result
 averages_of_depth = rowMeans(chlorophyll_concentrations)
 print(averages_of_depth) #averages answer
 
-## Part 3
+## Part 3: Data Frames
+
 lakes = data.frame(
   Lake = c("Mendota", "Wingra", "Monona", "Waubesa", "Kegonsa"),
   Temp_C = c(22.4, 25.1, 23.7, 24.6, 26.0),
@@ -51,7 +54,8 @@ install.packages("LakeMetabolizer")
 library(LakeMetabolizer)
 #Not sure how to do lake equilibrium part
 
-##Part 4: Loops
+## Part 4: Loops
+
 for (variable in 1:10) {
   print(variable^2)
 } #answer to first part 
@@ -67,15 +71,39 @@ for (t in 0:(time_steps - 1)) {
   pop[t + 1] = N0 * exp(r*t)
   
 }
-print(pop) #answer for part 2
+print(pop) #answer for question 2
 #I had to use help here because I was unsure of how to set up
 #this loop with an equation. I understand now
 
 phosphorus = list(
-  Lake_1 = c(10, 11, 12, 13),
-  Lake_2 = c(14, 15, 16, 17),
-  Lake_3 = c(17, 18, 19, 20),
-  Lake_4 = c(20, 21, 22, 23),
-  Lake_5 = c(23, 24, 25, 26),
+  Lake1 = c(10, 11, 12, 13),
+  Lake2 = c(14, 15, 16, 17),
+  Lake3 = c(17, 18, 19, 20),
+  Lake4 = c(20, 21, 22, 23),
+  Lake5 = c(23, 24, 25, 26)
 )
-##maddie can you give this next part a go im having issues
+
+lake_means = numeric(length(phosphorus)) #vector for storing results
+
+#loop for mean phosphorus concentration in each lake
+for (i in seq_along(phosphorus)) {
+  lake_means[i] = mean(phosphorus[[i]])
+  cat(names(phosphorus)[i],
+      "mean phosphorus =", lake_means[i], "µg/L\n")
+}
+print(lake_means)
+#had to look up unit of measurement notation
+
+## Part 5: Apply Functions
+
+#from chlorophyll array
+depth_means = apply(chlorophyll_concentrations, 1, mean)
+day_means = apply(chlorophyll_concentrations, 2, mean)
+print(depth_means)
+print(day_means)
+
+#from lakes data, runs through all columns
+lakes_range = apply(lakes[ , -1], 2, range) 
+print(lakes_range) #had to look up how to exclude the first column
+
+#I'm not sure I understand what the third question is asking
